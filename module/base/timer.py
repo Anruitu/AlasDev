@@ -8,14 +8,14 @@ def timeout(func, timeout_sec=30.0, *args, **kwargs):
     from module.logger import logger
 
     def function_timeout(func):
-        t0 = time.time()
+        t0 = time()
         success = True
         p = Thread(target=func, args=args, kwargs=kwargs)
         p.start()
         p.join(timeout_sec)
         if p.is_alive():
             success = False
-        t1 = time.time()
+        t1 = time()
         if t1 - t0 < 10:
             success = False
         _success = 'Done' if success else 'Failed'
